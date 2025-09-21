@@ -56,7 +56,7 @@ public class AuthConfiguration {
                     if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals(ADMIN_ROLE))) {
                         response.sendRedirect("/admin/home");
                     } else {
-                        response.sendRedirect("/");
+                        response.sendRedirect("/products");
                     }
                 })
                 .failureUrl("/login?error=true")
