@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aggiungi Prodotti Simili</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+<body>
+    <header>
+        <a href="/admin/manageProducts">Torna alla Gestione</a>
+    </header>
+    <h1>Aggiungi prodotti simili a: <span th:text="${product.name}"></span></h1>
+
+    <h3>Prodotti Simili Attuali:</h3>
+    <ul>
+        <li th:each="similar : ${product.similarProducts}">
+            <span th:text="${similar.name}"></span>
+        </li>
+    </ul>
+    
+    <h3>Aggiungi un nuovo prodotto simile:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Azione</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="p : ${productsToAdd}">
+                <td th:text="${p.name}">Nome Prodotto</td>
+                <td>
+                    <a th:href="@{'/admin/setSimilarProduct/' + ${product.id} + '/' + ${p.id}}">Aggiungi</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

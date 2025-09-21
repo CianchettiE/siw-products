@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nuovo Prodotto</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+<body>
+    <header>
+        <a href="/">Home</a>
+    </header>
+    <h1>Aggiungi un nuovo prodotto</h1>
+    <form th:action="@{/admin/products}" method="POST" th:object="${product}">
+        <div>
+            <label>Nome:</label>
+            <input type="text" th:field="*{name}" />
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        </div>
+        <div>
+            <label>Prezzo:</label>
+            <input type="number" step="0.01" th:field="*{price}" />
+            <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+        </div>
+        <div>
+            <label>Tipologia:</label>
+            <input type="text" th:field="*{type}" />
+            <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
+        </div>
+        <div>
+            <label>Descrizione:</label>
+            <textarea th:field="*{description}"></textarea>
+            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+        </div>
+        <div>
+            <button type="submit">Aggiungi</button>
+        </div>
+    </form>
+</body>
+</html>

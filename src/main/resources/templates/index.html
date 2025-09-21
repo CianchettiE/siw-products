@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Catalogo Prodotti</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+<body>
+    <header>
+        <h1>Catalogo Prodotti</h1>
+        <div>
+            <!-- Utilizza l'oggetto userDetails fornito dal GlobalController -->
+            <div th:if="${userDetails}">
+                <span th:text="${userDetails.username}"></span>
+                <a href="/logout">Logout</a>
+            </div>
+            <div th:unless="${userDetails}">
+                <a href="/login">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <h2>Benvenuto nel nostro catalogo!</h2>
+        <p>Esplora i nostri prodotti e scopri le ultime novità.</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/products">Visualizza tutti i prodotti</a></li>
+                <li><a href="/formSearchProducts">Cerca prodotti</a></li>
+                <!-- Controlla il ruolo tramite userDetails se necessario, o usa la sicurezza di Spring -->
+                <li th:if="${userDetails != null && userDetails.authorities.stream().anyMatch(a -> a.getAuthority() == 'ADMIN')}">
+                    <a href="/admin/home">Gestione Amministratore</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>
+

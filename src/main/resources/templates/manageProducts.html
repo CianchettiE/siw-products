@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestione Prodotti</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+<body>
+    <header>
+        <a href="/">Home</a>
+    </header>
+    <h1>Gestione Prodotti</h1>
+    
+    <a href="/admin/formNewProduct">Aggiungi Nuovo Prodotto</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Tipologia</th>
+                <th>Prezzo</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}">Nome Prodotto</td>
+                <td th:text="${product.type}">Tipologia</td>
+                <td th:text="${product.price}">Prezzo</td>
+                <td>
+                    <a th:href="@{'/admin/formUpdateProduct/' + ${product.id}}">Modifica</a>
+                    <a th:href="@{'/admin/deleteProduct/' + ${product.id}}">Cancella</a>
+                    <a th:href="@{'/admin/addSimilarProducts/' + ${product.id}}">Gestisci Simili</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

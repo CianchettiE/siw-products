@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title th:text="${product.name}"></title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+<body>
+    <header>
+        <div th:if="${#request.userPrincipal}">
+            <span th:text="${#request.userPrincipal.principal.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        <div th:unless="${#request.userPrincipal}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
+    <h1>Dettagli Prodotto</h1>
+    <div>
+        <h2 th:text="${product.name}">Nome Prodotto</h2>
+        <p><strong>Prezzo:</strong> <span th:text="${product.price}"></span> €</p>
+        <p><strong>Tipologia:</strong> <span th:text="${product.type}"></span></p>
+        <p><strong>Descrizione:</strong> <span th:text="${product.description}"></span></p>
+    </div>
+
+    <h3>Prodotti Simili</h3>
+    <ul>
+        <li th:each="similar : ${product.similarProducts}">
+            <a th:href="@{'/products/' + ${similar.id}}" th:text="${similar.name}"></a>
+        </li>
+    </ul>
+
+    <h3>Commenti</h3>
+    <div th:if="${#request.isUserInRole('DEFAULT')}">
+        <a th:href="@{'/user/formNewComment/' + ${product.id}}">Aggiungi un commento</a>
+    </div>
+    <div th:each="comment : ${product.comments}">
+        <h4><span th:text="${comment.title}"></span> - <span th:text="${comment.rating}"></span>/5</h4>
+        <p><span th:text="${comment.text}"></span></p>
+        <p><em>Autore: <span th:text="${comment.author.name} + ' ' + ${comment.author.surname}"></span></em></p>
+        <!-- Link per modificare il commento se l'utente è l'autore -->
+        <div th:if="${#request.userPrincipal != null && #request.userPrincipal.principal.username == comment.author.credentials.username}">
+             <a th:href="@{'/user/formUpdateComment/' + ${comment.id}}">Modifica commento</a>
+        </div>
+        <hr>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nuovo Commento</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+<body>
+    <header>
+        <a th:href="@{'/products/' + ${comment.product.id}}">Annulla</a>
+    </header>
+    <h1>Aggiungi un commento per <span th:text="${comment.product.name}"></span></h1>
+    <form th:action="@{'/user/newComment/' + ${comment.product.id}}" method="POST" th:object="${comment}">
+        <div>
+            <label>Titolo:</label>
+            <input type="text" th:field="*{title}" />
+            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+        </div>
+        <div>
+            <label>Voto:</label>
+            <input type="number" min="1" max="5" th:field="*{rating}" />
+            <span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></span>
+        </div>
+        <div>
+            <label>Testo:</label>
+            <textarea th:field="*{text}"></textarea>
+            <span th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></span>
+        </div>
+        <div>
+            <button type="submit">Invia</button>
+        </div>
+    </form>
+</body>
+</html>
